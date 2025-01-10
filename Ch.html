@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排球少年 - 人物介紹</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="image/favicon_io/apple-touch-icon.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <h1>排球少年 - 人物介紹</h1>
+        <div class="hamburger">☰</div>
+        <nav>
+            <a href="Haikyu.html">首頁</a>
+            <a href="Ch.html">人物介紹</a>
+            <a href="story.html">劇情簡介</a>
+            <a href="info.html">相關資訊</a>
+        </nav>
+    </header>
+
+    <div class="music-controls">
+        <audio id="background-music" src="audio/fly-high-haikyuu-but-is-it-okay-if-its-lofi-1-hour-loop.mp3" loop></audio>
+        <button id="play-button">播放音樂</button>
+        <button id="mute-button">🔊 靜音</button>
+    </div>
+
+    <main>
+        <h2>烏野高中主要角色</h2>
+        <div class="character-grid">
+            <div class="character-card fade-in">
+                <h3>日向翔陽</h3>
+                <img src="image/2-1.png" alt="日向翔陽">
+                <p>最強的誘餌，攔中</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>影山飛雄</h3>
+                <img src="image/2-2.png" alt="影山飛雄">
+                <p>天才二傳手</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>月島螢</h3>
+                <img src="image/2-3.png" alt="月島螢">
+                <p>冷靜的中鋒</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>澤村大地</h3>
+                <img src="image/2-4.png" alt="澤村大地">
+                <p>不動的頂梁柱，副攻手</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>菅原孝支</h3>
+                <img src="image/2-5.png" alt="菅原孝支">
+                <p>不屈的舉球員</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>田中龍之介</h3>
+                <img src="image/2-6.png" alt="田中龍之介">
+                <p>熱血隊員，主攻手</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>東峰旭</h3>
+                <img src="image/2-7.png" alt="東峰旭">
+                <p>玻璃心的王牌，主攻手</p>
+            </div>
+            
+            <div class="character-card fade-in">
+                <h3>西谷夕</h3>
+                <img src="image/2-8.png" alt="西谷夕">
+                <p>烏野的「守護神」，自由球員</p>
+            </div>
+        </div>
+        <!-- 在 main 標籤後面添加彈出視窗結構 -->
+<div class="modal-overlay" id="characterModal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <img src="" alt="" id="modalImage">
+        <h3 id="modalName"></h3>
+        <p id="modalDescription"></p>
+    </div>
+</div>
+
+<!-- 在 script 標籤中添加以下 JavaScript 代碼 -->
+<script>
+// 現有的 JavaScript 保持不變...
+
+// 添加角色卡片點擊事件
+const characterCards = document.querySelectorAll('.character-card');
+const modal = document.querySelector('.modal-overlay');
+const modalImage = document.getElementById('modalImage');
+const modalName = document.getElementById('modalName');
+const modalDescription = document.getElementById('modalDescription');
+const closeModal = document.querySelector('.close-modal');
+
+// 角色的詳細信息
+const characterDetails = {
+    '日向翔陽': {
+        description: '身高雖然只有164.2公分，但擁有出色的彈跳力。個性開朗活潑，充滿幹勁。在遇見影山後，兩人發展出獨特的快攻配合，被稱為「怪人速攻」。',
+    },
+    '影山飛雄': {
+        description: '被稱為「球場上的王者」的天才二傳手。雖然球技出眾，但因為過於追求完美，曾經與隊友產生嫌隙。在烏野與日向相遇後，逐漸學會與隊友合作。',
+    },
+    '月島螢': {
+        description: '身高188公分的一年級中間手。性格冷靜理智，常常以嘲諷的態度對待他人。隨著比賽經驗的累積，逐漸展現出對排球的熱情。',
+    },
+    '澤村大地': {
+        description: '烏野排球部的隊長，三年級生。雖然不是最出色的選手，但憑藉著堅強的意志力和領導能力，成為團隊的精神支柱。',
+    },
+    '菅原孝支': {
+        description: '三年級的副隊長，是一位技術穩定的舉球員。雖然位置被影山取代，但仍然以積極的態度支持團隊。',
+    },
+    '田中龍之介': {
+        description: '二年級的主攻手，性格熱血衝動。擅長接球，是團隊重要的得分手之一。',
+    },
+    '東峰旭': {
+        description: '三年級的主攻手，曾因壓力而離開球隊。後來在隊友的支持下重返球場，逐漸找回自信。',
+    },
+    '西谷夕': {
+        description: '二年級的自由人，以優秀的防守能力聞名。個性開朗，是提升團隊士氣的重要角色。',
+    }
+};
+
+characterCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const name = card.querySelector('h3').textContent;
+        const imgSrc = card.querySelector('img').src;
+        const details = characterDetails[name];
+
+        modalImage.src = imgSrc;
+        modalName.textContent = name;
+        modalDescription.textContent = details.description;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // 防止背景滾動
+    });
+});
+
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // 恢復背景滾動
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// 添加鍵盤 ESC 關閉功能
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+</script>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 排球少年介紹網站</p>
+    </footer>
+
+    <script>
+        // 漢堡選單控制
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // 滾動動畫
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.character-card');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 初始化滾動動畫
+        window.addEventListener('load', handleScrollAnimation);
+        window.addEventListener('scroll', handleScrollAnimation);
+
+        // 音樂控制
+        const music = document.getElementById('background-music');
+        const playButton = document.getElementById('play-button');
+        const muteButton = document.getElementById('mute-button');
+
+        const isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
+        const isMuted = localStorage.getItem('musicMuted') === 'true';
+
+        music.muted = isMuted;
+
+        if (isMusicPlaying) {
+            music.play();
+            playButton.textContent = '暫停音樂';
+        } else {
+            playButton.textContent = '播放音樂';
+        }
+
+        playButton.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                localStorage.setItem('musicPlaying', 'true');
+                playButton.textContent = '暫停音樂';
+            } else {
+                music.pause();
+                localStorage.setItem('musicPlaying', 'false');
+                playButton.textContent = '播放音樂';
+            }
+        });
+
+        muteButton.addEventListener('click', () => {
+            music.muted = !music.muted;
+            localStorage.setItem('musicMuted', music.muted.toString());
+
+            if (music.muted) {
+                muteButton.textContent = '🔇 開啟音樂';
+            } else {
+                muteButton.textContent = '🔊 靜音';
+            }
+        });
+    </script>
+</body>
+</html>
